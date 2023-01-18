@@ -1,6 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\UserFlsController;
+use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\EodReport\EodCallReportController;
+use App\Http\Controllers\EodReport\EodSalesReportController;
+use App\Http\Controllers\EodReport\EodBipromReportController;
+use App\Http\Controllers\EodReport\EodCategoryController;
+use App\Http\Controllers\EodReport\EodPaymentReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +24,54 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/dashboard-general-dashboard');
+Route::redirect('/', '/login');
+
+Route::controller(AuthController::class)->group(function() {
+    Route::get('login', 'index')->name('login');
+    Route::post('post-login', 'postLogin')->name('login.post');
+    Route::get('register', 'registration')->name('register');
+    Route::post('post-registration', 'postRegistration')->name('register.post');
+    Route::get('dashboard', 'dashboard');
+    Route::get('logout', 'logout')->name('logout');
+});
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/dashboard', [HomeController::class, 'index', 'type_menu' => 'dashboard']);
+
+    Route::prefix('users')->group( function(){
+            Route::get('/admin', [UserAdminController::class, 'index', 'type_menu' => 'users'])->name('users.admin.index');
+            Route::get('/admin/create', [UserAdminController::class, 'create', 'type_menu' => 'users'])->name('users.admin.create');
+            Route::post('/admin/store', [UserAdminController::class, 'store', 'type_menu' => 'users'])->name('users.admin.store');
+            Route::get('/admin/edit/{id}', [UserAdminController::class, 'edit', 'type_menu' => 'users'])->name('users.admin.edit');
+            Route::put('/admin/update/{id}', [UserAdminController::class, 'update', 'type_menu' => 'users'])->name('users.admin.update');
+            Route::get('admin/show/{id}', [UserAdminController::class, 'show', 'type_menu' => 'users'])->name('users.admin.show');
+            Route::delete('/admin/delete/{id}', [UserAdminController::class, 'destroy', 'type_menu' => 'users'])->name('users.admin.delete');
+            Route::get('/admin/import/index', [UserAdminController::class, 'indeximport', 'type_menu' => 'users'])->name('users.admin.import.index');
+            Route::post('/admin/import', [UserAdminController::class, 'import', 'type_menu' => 'users'])->name('users.admin.import');
+            Route::get('/admin/reset-password/{id}', [UserAdminController::class, 'resetPasswordIndex', 'type_menu' => 'users'])->name('users.admin.reset-password.index');
+            Route::put('/admin/reset-password/update/{id}', [UserAdminController::class, 'resetPassword', 'type_menu' => 'users'])->name('users.admin.reset-password');
+
+            // Route::get('/fls', [UserController::class, 'indexFLS', 'type_menu' => 'users']);
+            Route::resource('/fls', UserFlsController::class, ['type_menu' => 'users']);
+            Route::get('/fls/import/index', [UserFlsController::class, 'indeximport', 'type_menu' => 'users'])->name('fls.import.index');
+            Route::post('/fls/import', [UserFlsController::class, 'import', 'type_menu' => 'users'])->name('fls.import');
+    });
+
+    Route::prefix('category')->group( function(){
+        Route::resource('/eod-categories', EodCategoryController::class, ['type_menu' => 'category']);
+    });
+
+    Route::prefix('eod-reports')->group( function(){
+            Route::resource('/eod-call-report', EodCallReportController::class, ['type_menu' => 'eod-report']);
+            Route::resource('/eod-sales-report', EodSalesReportController::class, ['type_menu' => 'eod-report']);
+            Route::resource('/eod-biprom-report', EodBipromReportController::class, ['type_menu' => 'eod-report']);
+            Route::resource('/eod-payment-report', EodPaymentReportController::class, ['type_menu' => 'eod-report']);
+    });
+
+});
+
+
+// Route::redirect('/', '/dashboard-general-dashboard');
 
 // Dashboard
 Route::get('/dashboard-general-dashboard', function () {
@@ -146,7 +204,7 @@ Route::get('/forms-editor', function () {
     return view('pages.forms-editor', ['type_menu' => 'forms']);
 });
 Route::get('/forms-validation', function () {
-    return view('pages.forms-validation', ['type_menu' => 'forms']);
+    return view('pages.forms-   validation', ['type_menu' => 'forms']);
 });
 
 // google maps

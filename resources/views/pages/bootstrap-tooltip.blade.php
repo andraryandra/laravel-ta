@@ -32,35 +32,23 @@
                                 <h4>Directions</h4>
                             </div>
                             <div class="card-body">
-                                <button type="button"
-                                    class="btn btn-primary"
-                                    data-toggle="tooltip"
-                                    data-placement="top"
+                                <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top"
                                     title="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
                                     On top
                                 </button>
 
-                                <button type="button"
-                                    class="btn btn-primary"
-                                    data-toggle="tooltip"
-                                    data-placement="right"
+                                <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="right"
                                     title="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
                                     On right
                                 </button>
 
-                                <button type="button"
-                                    class="btn btn-primary"
-                                    data-toggle="tooltip"
-                                    data-placement="bottom"
+                                <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom"
                                     title="Vivamus
                     sagittis lacus vel augue laoreet rutrum faucibus.">
                                     On bottom
                                 </button>
 
-                                <button type="button"
-                                    class="btn btn-primary"
-                                    data-toggle="tooltip"
-                                    data-placement="left"
+                                <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="left"
                                     title="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
                                     On left
                                 </button>
@@ -71,12 +59,8 @@
                                 <h4>Disabled Tooltip</h4>
                             </div>
                             <div class="card-body">
-                                <span class="d-inline-block"
-                                    data-toggle="tooltip"
-                                    data-title="Disabled tooltip">
-                                    <button class="btn btn-primary pe-none"
-                                        type="button"
-                                        disabled>Disabled button</button>
+                                <span class="d-inline-block" data-toggle="tooltip" data-title="Disabled tooltip">
+                                    <button class="btn btn-primary pe-none" type="button" disabled>Disabled button</button>
                                 </span>
                             </div>
                         </div>
@@ -87,9 +71,7 @@
                                 <h4>Link</h4>
                             </div>
                             <div class="card-body">
-                                <a href="#"
-                                    data-toggle="tooltip"
-                                    title="Tooltip, bro!">Hover me!</a>
+                                <a href="#" data-toggle="tooltip" title="Tooltip, bro!">Hover me!</a>
                             </div>
                         </div>
                         <div class="card">

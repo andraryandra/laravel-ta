@@ -18,6 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id_role',
+        'id_status_user',
         'name',
         'email',
         'password',
@@ -41,4 +43,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function categoriRole()
+    {
+        return $this->belongsTo(CategoriesRole::class, 'id_role');
+    }
+    public function statusUser()
+    {
+        return $this->belongsTo(StatusUser::class,'id_status_user');
+    }
 }
+
